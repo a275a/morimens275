@@ -12,8 +12,8 @@ layout: default
         :root { --chaos: #ffd700; --deep: #00f2ff; --blood: #ff3c3c; --hyper: #da70d6; }
         
         body {
-            /* 경로 수정: '프로그램/' 제거 */
-            background: url('image_dec78e.jpg') no-repeat center center fixed;
+            /* 배경 이미지 경로: 망각전야이미지/ 추가 */
+            background: url('망각전야이미지/image_dec78e.jpg') no-repeat center center fixed;
             background-size: cover;
             color: white; font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
@@ -87,7 +87,7 @@ layout: default
 <body>
 
 <header>
-    <img src="image_decaf2.png" alt="MORIMENS LOGO" class="logo">
+    <img src="망각전야이미지/image_decaf2.png" alt="MORIMENS LOGO" class="logo">
     <p style="opacity:0.7">나만의 최적화된 조합을 확인하세요</p>
 </header>
 
@@ -110,36 +110,36 @@ layout: default
 </div>
 
 <script>
-    // 모든 이미지 파일명에서 '프로그램/' 접두사 제거
+    // 모든 이미지 경로에 '망각전야이미지/' 추가
     const characterData = {
-        '혼돈': { icon: 'icon_chaos.png', cls: 'card-chaos', txt: 'text-chaos',
+        '혼돈': { icon: '망각전야이미지/icon_chaos.png', cls: 'card-chaos', txt: 'text-chaos',
             list: [
-                {n:'회귀•라모나', i:'image_dd08da.png'}, {n:'융해•돌', i:'image_dd0c24.png'}, {n:'라이커', i:'image_dd0cdf.png'}, {n:'24', i:'image_dd0fe0.png'},
-                {n:'노틸라', i:'image_dd103c.png'}, {n:'님피아', i:'image_dd1098.png'}, {n:'판디아', i:'image_dd10db.png'}, {n:'릴리', i:'image_dd13a5.png'},
-                {n:'엘바', i:'image_dd13fc.png'}, {n:'카렌', i:'image_dd145e.png'}, {n:'타비', i:'image_dd6a98.png'}, {n:'카티구라', i:'image_dd6ad1.png'},
-                {n:'모샤', i:'image_dd6d9a.png'}, {n:'하멜른', i:'image_dd6dd8.png'}, {n:'라모나', i:'image_dd6e33.png'}, 
-                {n:'돌', i:'image_dd6e72.png'}, {n:'오지에', i:'image_dd6e98.png'}, {n:'로탄', i:'image_dd715b.png'}
+                {n:'회귀•라모나', i:'망각전야이미지/image_dd08da.png'}, {n:'융해•돌', i:'망각전야이미지/image_dd0c24.png'}, {n:'라이커', i:'망각전야이미지/image_dd0cdf.png'}, {n:'24', i:'망각전야이미지/image_dd0fe0.png'},
+                {n:'노틸라', i:'망각전야이미지/image_dd103c.png'}, {n:'님피아', i:'망각전야이미지/image_dd1098.png'}, {n:'판디아', i:'망각전야이미지/image_dd10db.png'}, {n:'릴리', i:'망각전야이미지/image_dd13a5.png'},
+                {n:'엘바', i:'망각전야이미지/image_dd13fc.png'}, {n:'카렌', i:'망각전야이미지/image_dd145e.png'}, {n:'타비', i:'망각전야이미지/image_dd6a98.png'}, {n:'카티구라', i:'망각전야이미지/image_dd6ad1.png'},
+                {n:'모샤', i:'망각전야이미지/image_dd6d9a.png'}, {n:'하멜른', i:'망각전야이미지/image_dd6dd8.png'}, {n:'라모나', i:'망각전야이미지/image_dd6e33.png'}, 
+                {n:'돌', i:'망각전야이미지/image_dd6e72.png'}, {n:'오지에', i:'망각전야이미지/image_dd6e98.png'}, {n:'로탄', i:'망각전야이미지/image_dd715b.png'}
             ]
         },
-        '심해': { icon: 'icon_deepsea.png', cls: 'card-deep', txt: 'text-deep',
+        '심해': { icon: '망각전야이미지/icon_deepsea.png', cls: 'card-deep', txt: 'text-deep',
             list: [
-                {n:'탄망•머피', i:'image_dd7270.png'}, {n:'툴루', i:'image_dd7522.png'}, {n:'머피', i:'image_dd7577.png'}, {n:'파로스', i:'image_dd75db.png'},
-                {n:'카이커', i:'image_dd7633.png'}, {n:'골리아', i:'image_dd791a.png'}, {n:'오레타', i:'image_dd795f.png'}, {n:'미리암', i:'image_dd799c.png'},
-                {n:'산', i:'image_dd79da.png'}, {n:'셀레스트', i:'image_dd7cbb.png'}, {n:'코퍼산트', i:'image_dd845b.png'}, {n:'모스', i:'image_dd84a1.png'}
+                {n:'탄망•머피', i:'망각전야이미지/image_dd7270.png'}, {n:'툴루', i:'망각전야이미지/image_dd7522.png'}, {n:'머피', i:'망각전야이미지/image_dd7577.png'}, {n:'파로스', i:'망각전야이미지/image_dd75db.png'},
+                {n:'카이커', i:'망각전야이미지/image_dd7633.png'}, {n:'골리아', i:'망각전야이미지/image_dd791a.png'}, {n:'오레타', i:'망각전야이미지/image_dd795f.png'}, {n:'미리암', i:'망각전야이미지/image_dd799c.png'},
+                {n:'산', i:'망각전야이미지/image_dd79da.png'}, {n:'셀레스트', i:'망각전야이미지/image_dd7cbb.png'}, {n:'코퍼산트', i:'망각전야이미지/image_dd845b.png'}, {n:'모스', i:'망각전야이미지/image_dd84a1.png'}
             ]
         },
-        '혈육': { icon: 'icon_blood.png', cls: 'card-blood', txt: 'text-blood',
+        '혈육': { icon: '망각전야이미지/icon_blood.png', cls: 'card-blood', txt: 'text-blood',
             list: [
-                {n:'혈쇄•시로', i:'image_dd88d6.png'}, {n:'타이스', i:'image_dd8c1f.png'}, {n:'살바도르', i:'image_dd8c59.png'}, {n:'아이기스', i:'image_dd8c7d.png'},
-                {n:'소렐', i:'image_dd8c9b.png'}, {n:'시로', i:'image_dd8cbb.png'}, {n:'아그리파', i:'image_ddde3a.png'}, {n:'우부하시', i:'image_ddde7a.png'},
-                {n:'레이아', i:'image_dddeb6.png'}, {n:'파인트', i:'image_ddded9.png'}, {n:'도어세인', i:'image_ddee54.png'}, {n:'픽맨', i:'image_ddf102.png'}, {n:'서', i:'image_ddf13f.png'}
+                {n:'혈쇄•시로', i:'망각전야이미지/image_dd88d6.png'}, {n:'타이스', i:'망각전야이미지/image_dd8c1f.png'}, {n:'살바도르', i:'망각전야이미지/image_dd8c59.png'}, {n:'아이기스', i:'망각전야이미지/image_dd8c7d.png'},
+                {n:'소렐', i:'망각전야이미지/image_dd8c9b.png'}, {n:'시로', i:'망각전야이미지/image_dd8cbb.png'}, {n:'아그리파', i:'망각전야이미지/image_ddde3a.png'}, {n:'우부하시', i:'망각전야이미지/image_ddde7a.png'},
+                {n:'레이아', i:'망각전야이미지/image_dddeb6.png'}, {n:'파인트', i:'망각전야이미지/image_ddded9.png'}, {n:'도어세인', i:'망각전야이미지/image_ddee54.png'}, {n:'픽맨', i:'망각전야이미지/image_ddf102.png'}, {n:'서', i:'망각전야이미지/image_ddf13f.png'}
             ]
         },
-        '초차원': { icon: 'icon_hyper.png', cls: 'card-hyper', txt: 'text-hyper',
+        '초차원': { icon: '망각전야이미지/icon_hyper.png', cls: 'card-hyper', txt: 'text-hyper',
             list: [
-                {n:'리즈', i:'image_ddf5b8.png'}, {n:'다포닐', i:'image_ddf89b.png'}, {n:'틴커트', i:'image_ddf8bb.png'}, {n:'완다', i:'image_ddf8d9.png'},
-                {n:'웬코르', i:'image_ddf8fd.png'}, {n:'오를라', i:'image_ddf91e.png'}, {n:'젠킨', i:'image_ddf93e.png'}, {n:'에리카', i:'image_ddf95e.png'},
-                {n:'카시아', i:'image_ddf998.png'}, {n:'카스토르', i:'image_ddfc45.png'}, {n:'클레멘타인', i:'image_ddfd1b.png'}, {n:'풀룩스', i:'image_ddfd39.png'}
+                {n:'리즈', i:'망각전야이미지/image_ddf5b8.png'}, {n:'다포닐', i:'망각전야이미지/image_ddf89b.png'}, {n:'틴커트', i:'망각전야이미지/image_ddf8bb.png'}, {n:'완다', i:'망각전야이미지/image_ddf8d9.png'},
+                {n:'웬코르', i:'망각전야이미지/image_ddf8fd.png'}, {n:'오를라', i:'망각전야이미지/image_ddf91e.png'}, {n:'젠킨', i:'망각전야이미지/image_ddf93e.png'}, {n:'에리카', i:'망각전야이미지/image_ddf95e.png'},
+                {n:'카시아', i:'망각전야이미지/image_ddf998.png'}, {n:'카스토르', i:'망각전야이미지/image_ddfc45.png'}, {n:'클레멘타인', i:'망각전야이미지/image_ddfd1b.png'}, {n:'풀룩스', i:'망각전야이미지/image_ddfd39.png'}
             ]
         }
     };
@@ -205,7 +205,6 @@ layout: default
         while (team.length < 4 && attempts < 1000) {
             let pick = candidatePool[Math.floor(Math.random() * candidatePool.length)];
             if (!team.some(t => t.n === pick.n)) {
-                // 라모나 중복 방지 (회귀•라모나 포함)
                 if (pick.n.includes('라모나') && team.some(t => t.n.includes('라모나'))) { attempts++; continue; }
                 team.push(pick);
             }
