@@ -23,7 +23,7 @@
 
         body::before {
             content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: -1;
+            background: rgba(0, 0, 0, 0.75); z-index: -1;
         }
 
         header { text-align: center; padding: 30px 20px; }
@@ -42,72 +42,80 @@
 
         .mode-selector, .style-selector { display: flex; gap: 10px; }
         .mode-selector label, .style-selector label {
-            cursor: pointer; padding: 8px 15px; background: #222; border: 1px solid #444;
+            cursor: pointer; padding: 10px 15px; background: #222; border: 1px solid #444;
             border-radius: 8px; transition: 0.3s; font-size: 0.85rem; flex: 1; text-align: center;
         }
         .mode-selector input, .style-selector input { display: none; }
         .mode-selector label:has(input:checked), .style-selector label:has(input:checked) { 
-            border-color: var(--chaos); background: rgba(255,215,0,0.1); color: var(--chaos); font-weight: bold;
+            border-color: var(--chaos); background: rgba(255,215,0,0.15); color: var(--chaos); font-weight: bold;
         }
 
-        .faction-accordion { margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
+        /* 아코디언 가시성 강화 */
+        .faction-accordion { margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #444; }
         .faction-header {
-            background: #1a1a1a; padding: 12px 20px; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center;
+            background: #1a1a1e; padding: 15px 25px; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
         }
-        .faction-header:hover { background: #222; }
-        .faction-info { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; font-weight: bold; }
-        .faction-icon-small { width: 24px; height: 24px; }
+        .faction-header:hover { background: #25252b; }
+        .faction-info { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: bold; letter-spacing: 1px; }
+        .faction-icon-small { width: 28px; height: 28px; }
 
-        .btn-toggle-group { display: flex; gap: 5px; }
+        /* 비활성화/재활성화 버튼 가시성 대폭 강화 */
+        .btn-toggle-group { display: flex; gap: 10px; }
         .btn-toggle { 
-            background: #333; color: #ccc; border: 1px solid #555; padding: 4px 10px; 
-            border-radius: 4px; cursor: pointer; font-size: 0.75rem; transition: 0.2s;
+            background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid #666; 
+            padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; 
+            font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
-        .btn-toggle:hover { background: #444; color: white; }
+        /* 활성 버튼: 각 계역 컬러 포인트 */
+        .btn-on { border-color: currentColor; background: rgba(255,255,255,0.1); }
+        .btn-on:hover { background: currentColor; color: #000 !important; transform: translateY(-2px); }
+        /* 해제 버튼: 레드 포인트 */
+        .btn-off:hover { border-color: #ff4444; color: #ff4444; background: rgba(255,68,68,0.1); transform: translateY(-2px); }
 
         .char-grid {
-            display: none; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px;
-            padding: 20px; background: rgba(0,0,0,0.4);
+            display: none; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px;
+            padding: 20px; background: rgba(0,0,0,0.5);
         }
         .char-grid.active { display: grid; }
 
         .char-item {
-            display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.03);
-            padding: 6px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;
+            display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05);
+            padding: 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;
         }
-        .char-item:hover { background: rgba(255,255,255,0.08); border-color: #555; }
-        .char-thumb { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #444; transition: 0.3s; }
+        .char-item:hover { background: rgba(255,255,255,0.12); border-color: #777; }
+        .char-thumb { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1.5px solid #444; }
         
-        .char-name-box { display: flex; flex-direction: column; font-size: 0.75rem; flex: 1; }
-        .tag-row { display: flex; gap: 3px; margin-top: 2px; }
-        .tier-tag { font-size: 0.6rem; font-weight: bold; padding: 1px 4px; border-radius: 3px; }
+        .char-name-box { display: flex; flex-direction: column; font-size: 0.8rem; flex: 1; }
+        .tag-row { display: flex; gap: 4px; margin-top: 3px; }
+        .tier-tag { font-size: 0.65rem; font-weight: bold; padding: 1px 5px; border-radius: 3px; }
         .tag-ssr { background: var(--ssr); color: black; } .tag-sr { background: #555; color: white; }
         
-        .role-tag { font-size: 0.6rem; padding: 1px 4px; border-radius: 3px; color: white; }
+        .role-tag { font-size: 0.65rem; padding: 1px 5px; border-radius: 3px; color: white; }
         .role-atk { background: var(--atk); }
         .role-def { background: var(--def); }
         .role-sup { background: var(--sup); color: black; }
 
         .btn-gen {
-            display: block; width: 260px; padding: 16px; margin: 30px auto 0;
+            display: block; width: 280px; padding: 18px; margin: 30px auto 0;
             background: linear-gradient(135deg, var(--chaos), #ff8c00);
-            border: none; border-radius: 50px; font-weight: bold; font-size: 1.2rem;
-            cursor: pointer; box-shadow: 0 0 20px rgba(255,215,0,0.3); color: black;
+            border: none; border-radius: 50px; font-weight: bold; font-size: 1.3rem;
+            cursor: pointer; box-shadow: 0 0 25px rgba(255,215,0,0.3); color: black; transition: 0.3s;
         }
+        .btn-gen:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,215,0,0.5); }
 
         .result-area { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 40px; }
         .card { 
             width: 170px; background: #151518; border-radius: 15px; overflow: hidden; 
             border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-        .card img.profile { width: 170px; height: 230px; object-fit: cover; border-bottom: 1px solid #333; transition: 0.5s; }
-        .card-name { font-weight: bold; font-size: 0.95rem; margin-top: 10px; }
+        .card img.profile { width: 170px; height: 230px; object-fit: cover; border-bottom: 1px solid #333; }
+        .card-name { font-weight: bold; font-size: 1rem; margin-top: 10px; }
         
-        .card-role-box { display: flex; justify-content: center; gap: 5px; margin-top: 5px; }
-        .card-faction { font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 4px; opacity: 0.8; }
-        .faction-icon-card { width: 12px; height: 12px; }
+        .card-role-box { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
+        .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 6px; opacity: 0.8; }
+        .faction-icon-card { width: 14px; height: 14px; }
     </style>
 </head>
 <body>
@@ -219,11 +227,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_v_final_v2', JSON.stringify(checked));
+        localStorage.setItem('morimens_v5_vis', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_v_final_v2'));
+        const saved = JSON.parse(localStorage.getItem('morimens_v5_vis'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -260,8 +268,8 @@
                     <img src="${config.icon}" class="faction-icon-small"> ${f}
                 </div>
                 <div class="btn-toggle-group">
-                    <button class="btn-toggle" onclick="toggleAll('${f}', true, event)">전체 활성</button>
-                    <button class="btn-toggle" onclick="toggleAll('${f}', false, event)">해제</button>
+                    <button class="btn-toggle btn-on" style="color:${config.color}" onclick="toggleAll('${f}', true, event)">전체 활성</button>
+                    <button class="btn-toggle btn-off" onclick="toggleAll('${f}', false, event)">해제</button>
                 </div>
             </div>
             <div class="char-grid" id="grid-${f}">
