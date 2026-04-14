@@ -9,9 +9,9 @@
         
         :root {
             --chaos: #ffd700; --deep: #00f2ff; --blood: #ff3c3c; --hyper: #da70d6;
-            --ssr: #ff8c00; --sr: #c0c0c0;
+            --guard: #ffffff; --ssr: #ff8c00; --sr: #c0c0c0;
             --atk: #ff4444; --def: #4488ff; --sup: #44ff88;
-            --glass: rgba(255, 255, 255, 0.05);
+            --special: #ffaa44; --glass: rgba(255, 255, 255, 0.05);
         }
 
         body {
@@ -19,6 +19,7 @@
             background-size: cover;
             color: white; font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            transition: background 0.3s ease-in-out;
         }
 
         body::before {
@@ -50,39 +51,28 @@
             border-color: var(--chaos); background: rgba(255,215,0,0.15); color: var(--chaos); font-weight: bold;
         }
 
-        /* 아코디언 가시성 강화 */
         .faction-accordion { margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #444; }
         .faction-header {
             background: #1a1a1e; padding: 15px 25px; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
         }
         .faction-header:hover { background: #25252b; }
-        .faction-info { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: bold; letter-spacing: 1px; }
+        .faction-info { display: flex; align-items: center; gap: 12px; font-size: 1.15rem; font-weight: bold; }
         .faction-icon-small { width: 28px; height: 28px; }
 
-        /* 비활성화/재활성화 버튼 가시성 대폭 강화 */
         .btn-toggle-group { display: flex; gap: 10px; }
         .btn-toggle { 
             background: rgba(255, 255, 255, 0.05); color: #fff; border: 1px solid #666; 
-            padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; 
-            font-weight: bold; transition: 0.3s; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.2s;
         }
-        /* 활성 버튼: 각 계역 컬러 포인트 */
         .btn-on { border-color: currentColor; background: rgba(255,255,255,0.1); }
         .btn-on:hover { background: currentColor; color: #000 !important; transform: translateY(-2px); }
-        /* 해제 버튼: 레드 포인트 */
         .btn-off:hover { border-color: #ff4444; color: #ff4444; background: rgba(255,68,68,0.1); transform: translateY(-2px); }
 
-        .char-grid {
-            display: none; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px;
-            padding: 20px; background: rgba(0,0,0,0.5);
-        }
+        .char-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px; padding: 20px; background: rgba(0,0,0,0.5); }
         .char-grid.active { display: grid; }
 
-        .char-item {
-            display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05);
-            padding: 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: 0.2s;
-        }
+        .char-item { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
         .char-item:hover { background: rgba(255,255,255,0.12); border-color: #777; }
         .char-thumb { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1.5px solid #444; }
         
@@ -92,9 +82,8 @@
         .tag-ssr { background: var(--ssr); color: black; } .tag-sr { background: #555; color: white; }
         
         .role-tag { font-size: 0.65rem; padding: 1px 5px; border-radius: 3px; color: white; }
-        .role-atk { background: var(--atk); }
-        .role-def { background: var(--def); }
-        .role-sup { background: var(--sup); color: black; }
+        .role-atk { background: var(--atk); } .role-def { background: var(--def); } .role-sup { background: var(--sup); color: black; }
+        .role-special { background: var(--special); color: black; }
 
         .btn-gen {
             display: block; width: 280px; padding: 18px; margin: 30px auto 0;
@@ -105,17 +94,12 @@
         .btn-gen:hover { transform: scale(1.05); box-shadow: 0 0 40px rgba(255,215,0,0.5); }
 
         .result-area { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 40px; }
-        .card { 
-            width: 170px; background: #151518; border-radius: 15px; overflow: hidden; 
-            border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-        }
-        .card img.profile { width: 170px; height: 230px; object-fit: cover; border-bottom: 1px solid #333; }
+        .card { width: 170px; background: #151518; border-radius: 15px; overflow: hidden; border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        .card img.profile { width: 170px; height: 230px; object-fit: cover; border-bottom: 1px solid #333; transition: 0.5s; }
         .card-name { font-weight: bold; font-size: 1rem; margin-top: 10px; }
-        
         .card-role-box { display: flex; justify-content: center; gap: 6px; margin-top: 6px; }
-        .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 6px; opacity: 0.8; }
-        .faction-icon-card { width: 14px; height: 14px; }
+        .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; opacity: 0.9; }
+        .faction-icon-card { width: 42px; height: 42px; } 
     </style>
 </head>
 <body>
@@ -143,7 +127,6 @@
                 </div>
             </div>
         </div>
-
         <div id="accordion-container"></div>
         <button class="btn-gen" onclick="makeTeam()">TEAM DECODE</button>
     </div>
@@ -227,11 +210,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_v5_vis', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_v5_vis'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -241,7 +224,7 @@
             const char = el.closest('.char-item');
             const img = char.querySelector('.char-thumb');
             const data = findCharData(el.dataset.n);
-            img.src = style === 'casual' ? data.i : data.i_gen;
+            if(data) img.src = style === 'casual' ? data.i : data.i_gen;
         });
     }
 
@@ -253,8 +236,8 @@
     }
 
     function getRoleTag(role) {
-        const roleCls = role === '공격형' ? 'role-atk' : (role === '방어형' || role === '수비형') ? 'role-def' : 'role-sup';
-        return `<span class="role-tag ${roleCls}">${role}</span>`;
+        const cls = role === '공격형' ? 'role-atk' : (role === '방어형' || role === '수비형') ? 'role-def' : (role === '모스단짝' ? 'role-special' : 'role-sup');
+        return `<span class="role-tag ${cls}">${role}</span>`;
     }
 
     const container = document.getElementById('accordion-container');
@@ -300,6 +283,30 @@
     }
 
     function makeTeam() {
+        document.body.style.backgroundImage = 'url(망각전야이미지폴더/image_dec78e.jpg)';
+        
+        // --- 0.5% 확률 이스터 에그 ---
+        if (Math.random() < 0.005) { 
+            document.body.style.backgroundImage = 'url(망각전야이미지폴더/Easter_egg3.png)';
+            const res = document.getElementById('result');
+            res.innerHTML = '';
+            for(let i=0; i<4; i++) {
+                res.innerHTML += `
+                    <div class="card" style="border-bottom: 4px solid #ffffff">
+                        <img src="망각전야이미지폴더/Easter_egg1.png" class="profile">
+                        <div class="card-name">작은석탄공</div>
+                        <div class="card-role-box">
+                            <span class="tier-tag tag-ssr">SSR</span>
+                            ${getRoleTag('모스단짝')}
+                        </div>
+                        <div class="card-faction" style="color:#ffffff">
+                            <img src="망각전야이미지폴더/Easter_egg2.png" class="faction-icon-card"> 수호자
+                        </div>
+                    </div>`;
+            }
+            return;
+        }
+
         const mixType = document.querySelector('input[name="mix_type"]:checked').value;
         const style = document.querySelector('input[name="img_style"]:checked').value;
         const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
