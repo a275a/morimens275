@@ -35,28 +35,29 @@
             border-radius: 20px; padding: 25px; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
-        .mode-selector {
-            display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;
-        }
-        .mode-selector label {
-            cursor: pointer; padding: 10px 20px; background: rgba(0,0,0,0.5); border: 1px solid #444;
-            border-radius: 10px; transition: 0.3s; font-size: 0.9rem;
-        }
-        .mode-selector input { display: none; }
-        .mode-selector input:checked + span { color: var(--chaos); font-weight: bold; }
-        .mode-selector label:has(input:checked) { border-color: var(--chaos); background: rgba(255,215,0,0.05); }
+        .settings-row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 25px; }
+        .setting-group { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; border: 1px solid #333; flex: 1; min-width: 300px; }
+        .setting-title { font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; color: var(--chaos); display: block; }
 
-        /* 아코디언 UI */
+        .mode-selector, .style-selector { display: flex; gap: 10px; }
+        .mode-selector label, .style-selector label {
+            cursor: pointer; padding: 8px 15px; background: #222; border: 1px solid #444;
+            border-radius: 8px; transition: 0.3s; font-size: 0.85rem; flex: 1; text-align: center;
+        }
+        .mode-selector input, .style-selector input { display: none; }
+        .mode-selector label:has(input:checked), .style-selector label:has(input:checked) { 
+            border-color: var(--chaos); background: rgba(255,215,0,0.1); color: var(--chaos); font-weight: bold;
+        }
+
         .faction-accordion { margin-bottom: 15px; border-radius: 12px; overflow: hidden; border: 1px solid #333; }
         .faction-header {
-            background: #1a1a1a; padding: 15px 25px; cursor: pointer;
+            background: #1a1a1a; padding: 12px 20px; cursor: pointer;
             display: flex; justify-content: space-between; align-items: center;
         }
         .faction-header:hover { background: #222; }
         .faction-info { display: flex; align-items: center; gap: 12px; font-size: 1.1rem; font-weight: bold; }
         .faction-icon-small { width: 24px; height: 24px; }
 
-        /* 전체 활성/비활성 버튼 세트 */
         .btn-toggle-group { display: flex; gap: 5px; }
         .btn-toggle { 
             background: #333; color: #ccc; border: 1px solid #555; padding: 4px 10px; 
@@ -75,12 +76,11 @@
             padding: 6px; border-radius: 8px; cursor: pointer; border: 1px solid transparent;
         }
         .char-item:hover { background: rgba(255,255,255,0.08); border-color: #555; }
-        .char-thumb { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 1px solid #444; }
+        .char-thumb { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 1px solid #444; transition: 0.3s; }
         .char-name-box { display: flex; flex-direction: column; font-size: 0.75rem; }
         .tier-tag { font-size: 0.6rem; font-weight: bold; width: fit-content; padding: 1px 4px; border-radius: 3px; margin-top: 2px; }
         .tag-ssr { background: var(--ssr); color: black; } .tag-sr { background: #555; color: white; }
 
-        /* 생성 버튼 */
         .btn-gen {
             display: block; width: 260px; padding: 16px; margin: 30px auto 0;
             background: linear-gradient(135deg, var(--chaos), #ff8c00);
@@ -88,14 +88,23 @@
             cursor: pointer; box-shadow: 0 0 20px rgba(255,215,0,0.3); color: black;
         }
 
-        /* 결과 영역 (이전 디자인 고정) */
+        /* 결과 영역 (사이즈 고정 로직 추가) */
         .result-area { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 40px; }
         .card { 
             width: 170px; background: #151518; border-radius: 15px; overflow: hidden; 
             border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-        .card img.profile { width: 100%; height: 220px; object-fit: cover; border-bottom: 1px solid #333; }
+        /* 이미지 크기 고정: 가로 170, 세로 230 / object-fit: cover로 찌그러짐 방지 */
+        .card img.profile { 
+            width: 170px; 
+            height: 230px; 
+            object-fit: cover; 
+            object-position: top center;
+            border-bottom: 1px solid #333; 
+            transition: 0.5s; 
+            display: block;
+        }
         .card-name { font-weight: bold; font-size: 0.95rem; margin-top: 10px; }
         .card-faction { font-size: 0.75rem; display: flex; align-items: center; justify-content: center; gap: 5px; margin-top: 4px; opacity: 0.8; }
         .faction-icon-card { width: 12px; height: 12px; }
@@ -109,10 +118,22 @@
 
 <div class="container">
     <div class="control-panel">
-        <div class="mode-selector">
-            <label><input type="radio" name="mix_type" value="1" checked><span>1개 계역 조합</span></label>
-            <label><input type="radio" name="mix_type" value="2"><span>2개 계역 조합</span></label>
-            <label><input type="radio" name="mix_type" value="chess"><span>체스랜덤 (All Mix)</span></label>
+        <div class="settings-row">
+            <div class="setting-group">
+                <span class="setting-title">🛡️ 편성 모드</span>
+                <div class="mode-selector">
+                    <label><input type="radio" name="mix_type" value="1" checked><span>1계역</span></label>
+                    <label><input type="radio" name="mix_type" value="2"><span>2계역</span></label>
+                    <label><input type="radio" name="mix_type" value="chess"><span>체스랜덤</span></label>
+                </div>
+            </div>
+            <div class="setting-group">
+                <span class="setting-title">🎨 이미지 스타일</span>
+                <div class="style-selector">
+                    <label><input type="radio" name="img_style" value="casual" checked onchange="updateView()"><span>캐주얼</span></label>
+                    <label><input type="radio" name="img_style" value="general" onchange="updateView()"><span>일반</span></label>
+                </div>
+            </div>
         </div>
 
         <div id="accordion-container"></div>
@@ -125,45 +146,102 @@
     const characterData = {
         '혼돈': { icon: '망각전야이미지폴더/icon_chaos.png', color: '#ffd700',
             list: [
-                {n:'회귀•라모나', t:'SSR', i:'망각전야이미지폴더/image_dd08da.png'}, {n:'융해•돌', t:'SSR', i:'망각전야이미지폴더/image_dd0c24.png'}, {n:'라이커', t:'SSR', i:'망각전야이미지폴더/image_dd0cdf.png'}, {n:'24', t:'SSR', i:'망각전야이미지폴더/image_dd0fe0.png'},
-                {n:'노틸라', t:'SSR', i:'망각전야이미지폴더/image_dd103c.png'}, {n:'님피아', t:'SSR', i:'망각전야이미지폴더/image_dd1098.png'}, {n:'판디아', t:'SSR', i:'망각전야이미지폴더/image_dd10db.png'}, {n:'릴리', t:'SSR', i:'망각전야이미지폴더/image_dd13a5.png'},
-                {n:'엘바', t:'SSR', i:'망각전야이미지폴더/image_dd13fc.png'}, {n:'카렌', t:'SSR', i:'망각전야이미지폴더/image_dd145e.png'}, {n:'타비', t:'SSR', i:'망각전야이미지폴더/image_dd6a98.png'}, {n:'카티구라', t:'SSR', i:'망각전야이미지폴더/image_dd6ad1.png'},
-                {n:'모샤', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png'}, {n:'하멜른', t:'SSR', i:'망각전야이미지폴더/image_dd6dd8.png'}, 
-                {n:'라모나', t:'SR', i:'망각전야이미지폴더/image_dd6e33.png'}, {n:'돌', t:'SR', i:'망각전야이미지폴더/image_dd6e72.png'}, 
-                {n:'오지에', t:'SR', i:'망각전야이미지폴더/image_dd6e98.png'}, {n:'로탄', t:'SR', i:'망각전야이미지폴더/image_dd715b.png'}
+                {n:'회귀•라모나', t:'SSR', i:'망각전야이미지폴더/image_dd08da.png', i_gen:'일반이미지폴더/gen_dd08da.png'},
+                {n:'융해•돌', t:'SSR', i:'망각전야이미지폴더/image_dd0c24.png', i_gen:'일반이미지폴더/gen_dd0c24.png'},
+                {n:'라이커', t:'SSR', i:'망각전야이미지폴더/image_dd0cdf.png', i_gen:'일반이미지폴더/gen_dd0cdf.png', i_hidden:'일반이미지폴더/hidden_dd0cdf.png'},
+                {n:'24', t:'SSR', i:'망각전야이미지폴더/image_dd0fe0.png', i_gen:'일반이미지폴더/gen_dd0fe0.png'},
+                {n:'노틸라', t:'SSR', i:'망각전야이미지폴더/image_dd103c.png', i_gen:'일반이미지폴더/gen_dd103c.png'},
+                {n:'님피아', t:'SSR', i:'망각전야이미지폴더/image_dd1098.png', i_gen:'일반이미지폴더/gen_dd1098.png'},
+                {n:'판디아', t:'SSR', i:'망각전야이미지폴더/image_dd10db.png', i_gen:'일반이미지폴더/gen_dd10db.png'},
+                {n:'릴리', t:'SSR', i:'망각전야이미지폴더/image_dd13a5.png', i_gen:'일반이미지폴더/gen_dd13a5.png'},
+                {n:'엘바', t:'SSR', i:'망각전야이미지폴더/image_dd13fc.png', i_gen:'일반이미지폴더/gen_dd13fc.png', i_hidden:'일반이미지폴더/hidden_dd13fc.png'},
+                {n:'카렌', t:'SSR', i:'망각전야이미지폴더/image_dd145e.png', i_gen:'일반이미지폴더/gen_dd145e.png'},
+                {n:'타비', t:'SSR', i:'망각전야이미지폴더/image_dd6a98.png', i_gen:'일반이미지폴더/gen_dd6a98.png'},
+                {n:'카티구라', t:'SSR', i:'망각전야이미지폴더/image_dd6ad1.png', i_gen:'일반이미지폴더/gen_dd6ad1.png'},
+                {n:'모샤', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png', i_gen:'일반이미지폴더/gen_dd6d9a.png'},
+                {n:'하멜른', t:'SSR', i:'망각전야이미지폴더/image_dd6dd8.png', i_gen:'일반이미지폴더/gen_dd6dd8.png'},
+                {n:'라모나', t:'SR', i:'망각전야이미지폴더/image_dd6e33.png', i_gen:'일반이미지폴더/gen_dd6e33.png'},
+                {n:'돌', t:'SR', i:'망각전야이미지폴더/image_dd6e72.png', i_gen:'일반이미지폴더/gen_dd6e72.png'},
+                {n:'오지에', t:'SR', i:'망각전야이미지폴더/image_dd6e98.png', i_gen:'일반이미지폴더/gen_dd6e98.png'},
+                {n:'로탄', t:'SR', i:'망각전야이미지폴더/image_dd715b.png', i_gen:'일반이미지폴더/gen_dd715b.png'}
             ]
         },
         '심해': { icon: '망각전야이미지폴더/icon_deepsea.png', color: '#00f2ff',
             list: [
-                {n:'탄망•머피', t:'SSR', i:'망각전야이미지폴더/image_dd7270.png'}, {n:'툴루', t:'SSR', i:'망각전야이미지폴더/image_dd7522.png'}, {n:'머피', t:'SSR', i:'망각전야이미지폴더/image_dd7577.png'}, {n:'파로스', t:'SSR', i:'망각전야이미지폴더/image_dd75db.png'},
-                {n:'카이커', t:'SSR', i:'망각전야이미지폴더/image_dd7633.png'}, {n:'골리아', t:'SSR', i:'망각전야이미지폴더/image_dd791a.png'}, {n:'오레타', t:'SSR', i:'망각전야이미지폴더/image_dd795f.png'}, {n:'미리암', t:'SSR', i:'망각전야이미지폴더/image_dd799c.png'},
-                {n:'산', t:'SSR', i:'망각전야이미지폴더/image_dd79da.png'}, {n:'셀레스트', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png'}, {n:'코퍼산트', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png'}, {n:'모스', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png'}
+                {n:'탄망•머피', t:'SSR', i:'망각전야이미지폴더/image_dd7270.png', i_gen:'일반이미지폴더/gen_dd7270.png'},
+                {n:'툴루', t:'SSR', i:'망각전야이미지폴더/image_dd7522.png', i_gen:'일반이미지폴더/gen_dd7522.png', i_hidden:'일반이미지폴더/hidden_dd7522.png'},
+                {n:'머피', t:'SSR', i:'망각전야이미지폴더/image_dd7577.png', i_gen:'일반이미지폴더/gen_dd7577.png'},
+                {n:'파로스', t:'SSR', i:'망각전야이미지폴더/image_dd75db.png', i_gen:'일반이미지폴더/gen_dd75db.png'},
+                {n:'카이커스', t:'SSR', i:'망각전야이미지폴더/image_dd7633.png', i_gen:'일반이미지폴더/gen_dd7633.png'},
+                {n:'골리아', t:'SSR', i:'망각전야이미지폴더/image_dd791a.png', i_gen:'일반이미지폴더/gen_dd791a.png'},
+                {n:'오레타', t:'SSR', i:'망각전야이미지폴더/image_dd795f.png', i_gen:'일반이미지폴더/gen_dd795f.png'},
+                {n:'미리암', t:'SSR', i:'망각전야이미지폴더/image_dd799c.png', i_gen:'일반이미지폴더/gen_dd799c.png', i_hidden:'일반이미지폴더/hidden_dd799c.png'},
+                {n:'산', t:'SSR', i:'망각전야이미지폴더/image_dd79da.png', i_gen:'일반이미지폴더/gen_dd79da.png'},
+                {n:'셀레스트', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
+                {n:'코퍼산트', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
+                {n:'모스', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'}
             ]
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
             list: [
-                {n:'혈쇄•시로', t:'SSR', i:'망각전야이미지폴더/image_dd88d6.png'}, {n:'타이스', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png'}, {n:'살바도르', t:'SSR', i:'망각전야이미지폴더/image_dd8c59.png'}, {n:'아이기스', t:'SSR', i:'망각전야이미지폴더/image_dd8c7d.png'},
-                {n:'소렐', t:'SSR', i:'망각전야이미지폴더/image_dd8c9b.png'}, {n:'시로', t:'SSR', i:'망각전야이미지폴더/image_dd8cbb.png'}, {n:'아그리파', t:'SSR', i:'망각전야이미지폴더/image_ddde3a.png'}, {n:'우부하시', t:'SSR', i:'망각전야이미지폴더/image_ddde7a.png'},
-                {n:'레이아', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png'}, {n:'파인트', t:'SSR', i:'망각전야이미지폴더/image_ddded9.png'}, {n:'도어세인', t:'SSR', i:'망각전야이미지폴더/image_ddee54.png'}, {n:'픽맨', t:'SSR', i:'망각전야이미지폴더/image_ddf102.png'}, {n:'서', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png'}
+                {n:'혈쇄•시로', t:'SSR', i:'망각전야이미지폴더/image_dd88d6.png', i_gen:'일반이미지폴더/gen_dd88d6.png'},
+                {n:'타이스', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png', i_gen:'일반이미지폴더/gen_dd8c1f.png', i_hidden:'일반이미지폴더/hidden_edaead.png'},
+                {n:'살바도르', t:'SSR', i:'망각전야이미지폴더/image_dd8c59.png', i_gen:'일반이미지폴더/gen_dd8c59.png'},
+                {n:'아이기스', t:'SSR', i:'망각전야이미지폴더/image_dd8c7d.png', i_gen:'일반이미지폴더/gen_dd8c7d.png'},
+                {n:'소렐', t:'SSR', i:'망각전야이미지폴더/image_dd8c9b.png', i_gen:'일반이미지폴더/gen_dd8c9b.png'},
+                {n:'시로', t:'SSR', i:'망각전야이미지폴더/image_dd8cbb.png', i_gen:'일반이미지폴더/gen_dd8cbb.png'},
+                {n:'아그리파', t:'SSR', i:'망각전야이미지폴더/image_ddde3a.png', i_gen:'일반이미지폴더/gen_ddde3a.png'},
+                {n:'우부하시', t:'SSR', i:'망각전야이미지폴더/image_ddde7a.png', i_gen:'일반이미지폴더/gen_ddde7a.png'},
+                {n:'레이아', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png', i_gen:'일반이미지폴더/gen_dddeb6.png'},
+                {n:'파인트', t:'SSR', i:'망각전야이미지폴더/image_ddded9.png', i_gen:'일반이미지폴더/gen_ddded9.png'},
+                {n:'도어세인', t:'SSR', i:'망각전야이미지폴더/image_ddee54.png', i_gen:'일반이미지폴더/gen_ddee54.png'},
+                {n:'픽맨', t:'SSR', i:'망각전야이미지폴더/image_ddf102.png', i_gen:'일반이미지폴더/gen_ddf102.png'},
+                {n:'서', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'}
             ]
         },
         '초차원': { icon: '망각전야이미지폴더/icon_hyper.png', color: '#da70d6',
             list: [
-                {n:'리즈', t:'SSR', i:'망각전야이미지폴더/image_ddf5b8.png'}, {n:'다포닐', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png'}, {n:'틴커트', t:'SSR', i:'망각전야이미지폴더/image_ddf8bb.png'}, {n:'완다', t:'SSR', i:'망각전야이미지폴더/image_ddf8d9.png'},
-                {n:'웬코르', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png'}, {n:'오를라', t:'SSR', i:'망각전야이미지폴더/image_ddf91e.png'}, {n:'젠킨', t:'SSR', i:'망각전야이미지폴더/image_ddf93e.png'}, {n:'에리카', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png'},
-                {n:'카시아', t:'SSR', i:'망각전야이미지폴더/image_ddf998.png'}, {n:'카스토르', t:'SSR', i:'망각전야이미지폴더/image_ddfc45.png'}, {n:'클레멘타인', t:'SSR', i:'망각전야이미지폴더/image_ddfd1b.png'}, {n:'풀룩스', t:'SSR', i:'망각전야이미지폴더/image_ddfd39.png'}
+                {n:'리즈', t:'SSR', i:'망각전야이미지폴더/image_ddf5b8.png', i_gen:'일반이미지폴더/gen_ddf5b8.png'},
+                {n:'다포닐', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png', i_gen:'일반이미지폴더/gen_ddf89b.png'},
+                {n:'틴커트', t:'SSR', i:'망각전야이미지폴더/image_ddf8bb.png', i_gen:'일반이미지폴더/gen_ddf8bb.png'},
+                {n:'완다', t:'SSR', i:'망각전야이미지폴더/image_ddf8d9.png', i_gen:'일반이미지폴더/gen_ddf8d9.png'},
+                {n:'웬코르', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'},
+                {n:'오를라', t:'SSR', i:'망각전야이미지폴더/image_ddf91e.png', i_gen:'일반이미지폴더/gen_ddf91e.png'},
+                {n:'젠킨', t:'SSR', i:'망각전야이미지폴더/image_ddf93e.png', i_gen:'일반이미지폴더/gen_ddf93e.png'},
+                {n:'에리카', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png', i_gen:'일반이미지폴더/gen_ddf95e.png'},
+                {n:'카시아', t:'SSR', i:'망각전야이미지폴더/image_ddf998.png', i_gen:'일반이미지폴더/gen_ddf998.png'},
+                {n:'카스토르', t:'SSR', i:'망각전야이미지폴더/image_ddfc45.png', i_gen:'일반이미지폴더/gen_ddfc45.png'},
+                {n:'클레멘타인', t:'SSR', i:'망각전야이미지폴더/image_ddfd1b.png', i_gen:'일반이미지폴더/gen_ddfd1b.png', i_hidden:'일반이미지폴더/hidden_edfd1b.png'},
+                {n:'풀룩스', t:'SSR', i:'망각전야이미지폴더/image_ddfd39.png', i_gen:'일반이미지폴더/gen_ddfd39.png'}
             ]
         }
     };
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_vfinal', JSON.stringify(checked));
+        localStorage.setItem('morimens_fixed_size', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_vfinal'));
+        const saved = JSON.parse(localStorage.getItem('morimens_fixed_size'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
+    }
+
+    function updateView() {
+        const style = document.querySelector('input[name="img_style"]:checked').value;
+        document.querySelectorAll('.chk').forEach(el => {
+            const char = el.closest('.char-item');
+            const img = char.querySelector('.char-thumb');
+            const data = findCharData(el.dataset.n);
+            img.src = style === 'casual' ? data.i : data.i_gen;
+        });
+    }
+
+    function findCharData(name) {
+        for(let f in characterData) {
+            let found = characterData[f].list.find(c => c.n === name);
+            if(found) return found;
+        }
     }
 
     const container = document.getElementById('accordion-container');
@@ -184,7 +262,7 @@
             <div class="char-grid" id="grid-${f}">
                 ${config.list.map(c => `
                     <label class="char-item">
-                        <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-i="${c.i}" checked onchange="saveSettings()">
+                        <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" checked onchange="saveSettings()">
                         <img src="${c.i}" class="char-thumb">
                         <div class="char-name-box">
                             <span>${c.n}</span>
@@ -197,34 +275,32 @@
         container.appendChild(section);
     }
 
-    function toggleFaction(header) {
-        const grid = header.nextElementSibling;
-        grid.classList.toggle('active');
-        const iconDiv = header.querySelector('.btn-toggle-group').nextElementSibling;
-    }
+    function toggleFaction(header) { header.nextElementSibling.classList.toggle('active'); }
 
     function toggleAll(f, s, e) {
-        e.stopPropagation(); // 아코디언이 닫히지 않게 방지
+        e.stopPropagation();
         document.querySelectorAll(`.chk-${f}`).forEach(el => el.checked = s);
         saveSettings();
     }
 
     function makeTeam() {
         const mixType = document.querySelector('input[name="mix_type"]:checked').value;
+        const style = document.querySelector('input[name="img_style"]:checked').value;
         const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
+        
         if (availableFactions.length === 0) return alert("각성체를 선택해주세요!");
 
         let pool = [];
         if (mixType === 'chess') {
             availableFactions.forEach(f => {
-                pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, i: el.dataset.i, t: el.dataset.t })));
+                pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, t: el.dataset.t })));
             });
         } else {
-            let numF = parseInt(mixType);
+            let numF = parseInt(mixType) || (Math.random() < 0.5 ? 1 : 2);
             numF = Math.min(numF, availableFactions.length);
             const pickedF = [...availableFactions].sort(() => 0.5 - Math.random()).slice(0, numF);
             pickedF.forEach(f => {
-                pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, i: el.dataset.i, t: el.dataset.t })));
+                pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, t: el.dataset.t })));
             });
         }
 
@@ -245,9 +321,17 @@
         res.innerHTML = '';
         team.forEach(t => {
             const config = characterData[t.f];
+            const charInfo = findCharData(t.n);
+            
+            // 이미지 결정: 5% 확률 히든, 아니면 선택 스타일
+            let finalImg = style === 'casual' ? charInfo.i : charInfo.i_gen;
+            if (charInfo.i_hidden && Math.random() < 0.05) {
+                finalImg = charInfo.i_hidden;
+            }
+
             res.innerHTML += `
                 <div class="card" style="border-bottom: 4px solid ${config.color}">
-                    <img src="${t.i}" class="profile" onerror="this.src='https://via.placeholder.com/170x220?text=No+Image'">
+                    <img src="${finalImg}" class="profile" onerror="this.src='https://via.placeholder.com/170x230?text=No+Image'">
                     <div class="card-name">${t.n} <span class="tier-tag ${t.t === 'SSR' ? 'tag-ssr' : 'tag-sr'}" style="font-size:0.5rem; position:relative; top:-2px;">${t.t}</span></div>
                     <div class="card-faction" style="color:${config.color}">
                         <img src="${config.icon}" class="faction-icon-card"> ${t.f}
