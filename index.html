@@ -11,12 +11,8 @@
             --chaos: #ffd700; --deep: #00f2ff; --blood: #ff3c3c; --hyper: #da70d6;
             --ssr: #ff8c00; --sr: #c0c0c0;
             --atk: #ff4444; --def: #4488ff; --sup: #44ff88;
-            /* 체스 고유 역할군 색상 (가시성 강화) */
-            --c-guard: #00e5ff;    /* 수호: 밝은 하늘색 */
-            --c-struggle: #ff4d4d; /* 투쟁: 밝은 빨간색 */
-            --c-territory: #bf80ff;/* 영지: 밝은 보라색 */
-            --c-star: #ff66cc;     /* 흉성: 핫핑크 */
-            --c-bless: #66ff66;    /* 축복: 네온 연두 */
+            /* 체스 고유 역할군 색상 */
+            --c-guard: #00e5ff; --c-struggle: #ff4d4d; --c-territory: #bf80ff; --c-star: #ff66cc; --c-bless: #66ff66;
             --glass: rgba(255, 255, 255, 0.05);
         }
 
@@ -25,7 +21,6 @@
             background-size: cover;
             color: white; font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0;
             display: flex; flex-direction: column; align-items: center; min-height: 100vh;
-            transition: background 0.3s ease-in-out;
         }
 
         body::before {
@@ -72,14 +67,12 @@
             padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.8rem; font-weight: bold; transition: 0.2s;
         }
         .btn-on { border-color: currentColor; background: rgba(255,255,255,0.1); }
-        .btn-on:hover { background: currentColor; color: #000 !important; transform: translateY(-2px); }
-        .btn-off:hover { border-color: #ff4444; color: #ff4444; background: rgba(255,68,68,0.1); transform: translateY(-2px); }
+        .btn-off:hover { border-color: #ff4444; color: #ff4444; background: rgba(255,68,68,0.1); }
 
         .char-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 10px; padding: 20px; background: rgba(0,0,0,0.5); }
         .char-grid.active { display: grid; }
 
-        .char-item { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: 0.2s; }
-        .char-item:hover { background: rgba(255,255,255,0.12); border-color: #777; }
+        .char-item { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 10px; cursor: pointer; border: 1px solid transparent; }
         .char-thumb { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 1.5px solid #444; }
         
         .char-name-box { display: flex; flex-direction: column; font-size: 0.8rem; flex: 1; }
@@ -89,9 +82,8 @@
         
         .role-tag { font-size: 0.65rem; padding: 1px 5px; border-radius: 3px; color: white; font-weight: bold; }
         .role-atk { background: var(--atk); } .role-def { background: var(--def); } .role-sup { background: var(--sup); color: black; }
-
-        /* 체스 고유 역할군 스타일 (가시성 극대화) */
-        .role-chess { padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); text-shadow: 0 0 3px rgba(0,0,0,1); }
+        
+        .role-chess { padding: 2px 8px; border: 1px solid rgba(255,255,255,0.2); text-shadow: 0 0 3px #000; }
         .role-chess.수호 { background: #004d66; color: var(--c-guard); border-color: var(--c-guard); box-shadow: 0 0 5px var(--c-guard); }
         .role-chess.투쟁 { background: #661a00; color: var(--c-struggle); border-color: var(--c-struggle); box-shadow: 0 0 5px var(--c-struggle); }
         .role-chess.영지 { background: #3d0066; color: var(--c-territory); border-color: var(--c-territory); box-shadow: 0 0 5px var(--c-territory); }
@@ -106,12 +98,21 @@
         }
 
         .result-area { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 40px; }
-        .card { width: 170px; background: #151518; border-radius: 15px; overflow: hidden; border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: 0.3s; }
-        .card img.profile { width: 170px; height: 230px; object-fit: cover; border-bottom: 1px solid #333; }
+        .card { width: 170px; background: #151518; border-radius: 15px; overflow: hidden; border-bottom: 4px solid #444; text-align: center; padding-bottom: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+        
+        /* 전신 이미지에서도 얼굴이 제대로 보이도록 포커스 조정 (상단 15%) */
+        .card img.profile { 
+            width: 170px; 
+            height: 230px; 
+            object-fit: cover; /* 비율 유지하며 채움 */
+            object-position: center 15%; /* 상단 얼굴 위주로 포커스 */
+            border-bottom: 1px solid #333; 
+        }
+
         .card-name { font-weight: bold; font-size: 1rem; margin-top: 10px; }
         .card-role-box { display: flex; justify-content: center; gap: 6px; margin-top: 6px; min-height: 22px; }
         .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; opacity: 0.9; }
-        .faction-icon-card { width: 42px; height: 42px; } /* 계역 아이콘 3배 확대 */
+        .faction-icon-card { width: 42px; height: 42px; }
     </style>
 </head>
 <body>
@@ -146,13 +147,13 @@
 </div>
 
 <script>
-    // 체스 전용 고유 역할군 매핑 데이터
+    // 체스 역할군 매핑 (아라크네 고유 코드 반영)
     const chessRoles = {
         "수호": ["엘바","아이기스","릴리","카스토르","웬코르","에리카","완다","오지에","파인트","산","아그리파"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","모샤","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
-        "영지": ["카시아","미리암","틴커트","노틸라","판디아","회귀•라모나","타비","파로스","탄망•머피","머피","라모나","클레멘타인"],
+        "영지": ["아라크네","카시아","미리암","틴커트","노틸라","판디아","회귀•라모나","타비","파로스","탄망•머피","머피","라모나","클레멘타인"],
         "흉성": ["서","님피아","툴루","리즈","젠킨","우브하시","소렐","오레타","픽맨","도어세인"],
-        "축복": ["코퍼산트","레이아","돌","젠킨","카렌","타이스","융해•돌","오를라","셀레스트"]
+        "축복": ["코퍼산트","레이아","돌","카렌","타이스","융해•돌","오를라","셀레스트"]
     };
 
     const characterData = {
@@ -160,13 +161,13 @@
             list: [
                 {n:'회귀•라모나', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd08da.png', i_gen:'일반이미지폴더/gen_dd08da.png'},
                 {n:'융해•돌', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd0c24.png', i_gen:'일반이미지폴더/gen_dd0c24.png'},
-                {n:'라이커', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd0cdf.png', i_gen:'일반이미지폴더/gen_dd0cdf.png', i_hidden:'일반이미지폴더/hidden_dd0cdf.png'},
+                {n:'라이커', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd0cdf.png', i_gen:'일반이미지폴더/gen_dd0cdf.png'},
                 {n:'24', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd0fe0.png', i_gen:'일반이미지폴더/gen_dd0fe0.png'},
                 {n:'노틸라', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd103c.png', i_gen:'일반이미지폴더/gen_dd103c.png'},
                 {n:'님피아', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd1098.png', i_gen:'일반이미지폴더/gen_dd1098.png'},
                 {n:'판디아', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd10db.png', i_gen:'일반이미지폴더/gen_dd10db.png'},
                 {n:'릴리', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd13a5.png', i_gen:'일반이미지폴더/gen_dd13a5.png'},
-                {n:'엘바', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd13fc.png', i_gen:'일반이미지폴더/gen_dd13fc.png', i_hidden:'일반이미지폴더/hidden_dd13fc.png'},
+                {n:'엘바', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd13fc.png', i_gen:'일반이미지폴더/gen_dd13fc.png'},
                 {n:'카렌', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd145e.png', i_gen:'일반이미지폴더/gen_dd145e.png'},
                 {n:'타비', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd6a98.png', i_gen:'일반이미지폴더/gen_dd6a98.png'},
                 {n:'카티구라', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6ad1.png', i_gen:'일반이미지폴더/gen_dd6ad1.png'},
@@ -181,13 +182,13 @@
         '심해': { icon: '망각전야이미지폴더/icon_deepsea.png', color: '#00f2ff',
             list: [
                 {n:'탄망•머피', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7270.png', i_gen:'일반이미지폴더/gen_dd7270.png'},
-                {n:'툴루', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd7522.png', i_gen:'일반이미지폴더/gen_dd7522.png', i_hidden:'일반이미지폴더/hidden_dd7522.png'},
+                {n:'툴루', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd7522.png', i_gen:'일반이미지폴더/gen_dd7522.png'},
                 {n:'머피', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd7577.png', i_gen:'일반이미지폴더/gen_dd7577.png'},
                 {n:'파로스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd75db.png', i_gen:'일반이미지폴더/gen_dd75db.png'},
                 {n:'카이커스', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd7633.png', i_gen:'일반이미지폴더/gen_dd7633.png'},
                 {n:'골리아', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd791a.png', i_gen:'일반이미지폴더/gen_dd791a.png'},
                 {n:'오레타', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd795f.png', i_gen:'일반이미지폴더/gen_dd795f.png'},
-                {n:'미리암', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd799c.png', i_gen:'일반이미지폴더/gen_dd799c.png', i_hidden:'일반이미지폴더/hidden_dd799c.png'},
+                {n:'미리암', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd799c.png', i_gen:'일반이미지폴더/gen_dd799c.png'},
                 {n:'산', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd79da.png', i_gen:'일반이미지폴더/gen_dd79da.png'},
                 {n:'셀레스트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
                 {n:'코퍼산트', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
@@ -206,13 +207,15 @@
                 {n:'살바도르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd8c59.png', i_gen:'일반이미지폴더/gen_dd8c59.png'},
                 {n:'아이기스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c7d.png', i_gen:'일반이미지폴더/gen_dd8c7d.png'},
                 {n:'레이아', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png', i_gen:'일반이미지폴더/gen_dddeb6.png'},
-                {n:'타이스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png', i_gen:'일반이미지폴더/gen_dd8c1f.png', i_hidden:'일반이미지폴더/hidden_edaead.png'},
+                {n:'타이스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png', i_gen:'일반이미지폴더/gen_dd8c1f.png'},
                 {n:'픽맨', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf102.png', i_gen:'일반이미지폴더/gen_ddf102.png'},
                 {n:'서', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'}
             ]
         },
         '초차원': { icon: '망각전야이미지폴더/icon_hyper.png', color: '#da70d6',
             list: [
+                /* 아라크네: 통일된 데이터 규칙 적용 (코드: ddffff) */
+                {n:'아라크네', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddffff.png', i_gen:'일반이미지폴더/gen_ddffff.png'},
                 {n:'리즈', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf5b8.png', i_gen:'일반이미지폴더/gen_ddf5b8.png'},
                 {n:'젠킨', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf93e.png', i_gen:'일반이미지폴더/gen_ddf93e.png'},
                 {n:'다포닐', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png', i_gen:'일반이미지폴더/gen_ddf89b.png'},
@@ -224,18 +227,18 @@
                 {n:'틴커트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf8bb.png', i_gen:'일반이미지폴더/gen_ddf8bb.png'},
                 {n:'카시아', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf998.png', i_gen:'일반이미지폴더/gen_ddf998.png'},
                 {n:'오를라', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf91e.png', i_gen:'일반이미지폴더/gen_ddf91e.png'},
-                {n:'클레멘타인', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfd1b.png', i_gen:'일반이미지폴더/gen_ddfd1b.png', i_hidden:'일반이미지폴더/hidden_edfd1b.png'}
+                {n:'클레멘타인', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfd1b.png', i_gen:'일반이미지폴더/gen_ddfd1b.png'}
             ]
         }
     };
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v4', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v10', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v4'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v10'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -257,11 +260,11 @@
     }
 
     function getRoleTag(role) {
-        const cls = role === '공격형' ? 'role-atk' : (role === '방어형' || role === '수비형') ? 'role-def' : 'role-sup';
+        const cls = (role === '공격형') ? 'role-atk' : (role === '방어형' || role === '수비형') ? 'role-def' : 'role-sup';
         return `<span class="role-tag ${cls}">${role}</span>`;
     }
 
-    const container = document.getElementById('accordion-container');
+    const accordion = document.getElementById('accordion-container');
     for (const f in characterData) {
         const config = characterData[f];
         const section = document.createElement('div');
@@ -292,11 +295,10 @@
                 `).join('')}
             </div>
         `;
-        container.appendChild(section);
+        accordion.appendChild(section);
     }
 
     function toggleFaction(header) { header.nextElementSibling.classList.toggle('active'); }
-
     function toggleAll(f, s, e) {
         e.stopPropagation();
         document.querySelectorAll(`.chk-${f}`).forEach(el => el.checked = s);
@@ -310,7 +312,6 @@
         const res = document.getElementById('result');
         res.innerHTML = '';
 
-        // --- 0.5% 확률 이스터 에그 ---
         if (Math.random() < 0.005) { 
             document.body.style.backgroundImage = 'url(망각전야이미지폴더/Easter_egg3.png)';
             for(let i=0; i<4; i++) {
@@ -327,11 +328,9 @@
 
         let team = [];
 
-        // --- 체스 랜덤 모드 (중복 금지 & 고유 컬러) ---
         if (mixType === 'chess') {
             const checkedNames = Array.from(document.querySelectorAll('.chk:checked')).map(el => el.dataset.n);
             const rolesPool = Object.keys(chessRoles).sort(() => 0.5 - Math.random());
-            
             for (let role of rolesPool) {
                 if (team.length >= 4) break;
                 let roleChars = chessRoles[role].filter(name => checkedNames.includes(name));
@@ -344,23 +343,17 @@
                 }
             }
             if (team.length < 4) return alert("캐릭터가 부족합니다. (4가지 역할군 필요)");
-        } 
-        // --- 일반 모드 ---
-        else {
+        } else {
             const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
             if (availableFactions.length === 0) return alert("각성체를 선택해주세요!");
-
             let pool = [];
             let numF = parseInt(mixType) || (Math.random() < 0.5 ? 1 : 2);
             numF = Math.min(numF, availableFactions.length);
             const pickedF = [...availableFactions].sort(() => 0.5 - Math.random()).slice(0, numF);
-            
             pickedF.forEach(f => {
                 pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, t: el.dataset.t, r: el.dataset.r })));
             });
-
             if (pool.length < 4) return alert("캐릭터가 부족합니다.");
-
             let attempts = 0;
             while (team.length < 4 && attempts < 1000) {
                 let p = pool[Math.floor(Math.random() * pool.length)];
@@ -372,22 +365,11 @@
             }
         }
 
-        // 결과 출력
         team.forEach(t => {
             const config = characterData[t.f];
             const charInfo = findCharData(t.n);
             let finalImg = style === 'casual' ? charInfo.i : charInfo.i_gen;
-            if (charInfo.i_hidden && Math.random() < 0.05) finalImg = charInfo.i_hidden;
-
-            // 역할군 태그 (체스 모드면 고유 색상 적용)
-            let roleTagHTML = "";
-            if (mixType === 'chess') {
-                const roleKey = t.chessRole;
-                const chessClass = (roleKey === '수호') ? '수호' : (roleKey === '투쟁') ? '투쟁' : (roleKey === '영지') ? '영지' : (roleKey === '흉성') ? '흉성' : '축복';
-                roleTagHTML = `<span class="role-tag role-chess ${chessClass}">${roleKey}</span>`;
-            } else {
-                roleTagHTML = getRoleTag(t.r);
-            }
+            let roleTagHTML = (mixType === 'chess') ? `<span class="role-tag role-chess ${t.chessRole}">${t.chessRole}</span>` : getRoleTag(t.r);
 
             res.innerHTML += `
                 <div class="card" style="border-bottom: 4px solid ${config.color}">
