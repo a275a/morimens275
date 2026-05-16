@@ -153,7 +153,6 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
-    // 체스 역할군 매핑 (사야를 '영지'에 임시 추가)
     const chessRoles = {
         "수호": ["엘바","아이기스","릴리","카스토르","웬코르","에리카","완다","오지에","파인트","산","아그리파"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","모샤","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
@@ -203,7 +202,6 @@
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
             list: [
-                /* 신규 캐릭터 사야 추가 (코드 규칙 반영) */
                 {n:'사야', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfa01.png', i_gen:'일반이미지폴더/gen_ddfa01.png'},
                 {n:'혈쇄•히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd88d6.png', i_gen:'일반이미지폴더/gen_dd88d6.png'},
                 {n:'히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd8cbb.png', i_gen:'일반이미지폴더/gen_dd8cbb.png'},
@@ -227,7 +225,7 @@
                 {n:'젠킨', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf93e.png', i_gen:'일반이미지폴더/gen_ddf93e.png'},
                 {n:'다포닐', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png', i_gen:'일반이미지폴더/gen_ddf89b.png'},
                 {n:'폴룩스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddfd39.png', i_gen:'일반이미지폴더/gen_ddfd39.png'},
-                {n:'text', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png', i_gen:'일반이미지폴더/gen_ddf95e.png'},
+                {n:'에리카', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png', i_gen:'일반이미지폴더/gen_ddf95e.png'},
                 {n:'웬코르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'},
                 {n:'완다', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8d9.png', i_gen:'일반이미지폴더/gen_ddf8d9.png'},
                 {n:'카스토르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddfc45.png', i_gen:'일반이미지폴더/gen_ddfc45.png'},
@@ -241,11 +239,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v14', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v15', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v14'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v15'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -300,7 +298,7 @@
                     <div class="char-grid" id="grid-${role}">
                         ${chars.map(c => `
                             <label class="char-item">
-                                <input type="checkbox" class="chk chk-${role}" data-n="${c.n}" checked onchange="saveSettings()">
+                                <input type="checkbox" class="chk chk-${role}" data-n="${c.n}" ${c.n === '사야' ? '' : 'checked'} onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
                                     <span>${c.n}</span>
@@ -333,7 +331,7 @@
                     <div class="char-grid" id="grid-${f}">
                         ${config.list.map(c => `
                             <label class="char-item">
-                                <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-r="${c.r}" checked onchange="saveSettings()">
+                                <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-r="${c.r}" ${c.n === '사야' ? '' : 'checked'} onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
                                     <span>${c.n}</span>
