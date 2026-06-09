@@ -42,10 +42,10 @@
         .setting-group { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 12px; border: 1px solid #333; flex: 1; min-width: 300px; }
         .setting-title { font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; color: var(--chaos); display: block; }
 
-        .mode-selector, .style-selector { display: flex; gap: 10px; }
+        .mode-selector, .style-selector { display: flex; gap: 10px; flex-wrap: wrap; }
         .mode-selector label, .style-selector label {
             cursor: pointer; padding: 10px 15px; background: #222; border: 1px solid #444;
-            border-radius: 8px; transition: 0.3s; font-size: 0.85rem; flex: 1; text-align: center;
+            border-radius: 8px; transition: 0.3s; font-size: 0.85rem; flex: 1; text-align: center; min-width: 80px;
         }
         .mode-selector input, .style-selector input { display: none; }
         .mode-selector label:has(input:checked), .style-selector label:has(input:checked) { 
@@ -111,6 +111,13 @@
         .card-role-box { display: flex; justify-content: center; gap: 6px; margin-top: 6px; min-height: 22px; }
         .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; opacity: 0.9; }
         .faction-icon-card { width: 42px; height: 42px; }
+
+        /* 행운의 각성체 모드일 때 카드를 조금 더 크고 화려하게 표시 (선택사항) */
+        .card.lucky-card {
+            transform: scale(1.1);
+            box-shadow: 0 15px 45px rgba(255, 215, 0, 0.4);
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -128,6 +135,8 @@
                     <label><input type="radio" name="mix_type" value="1" checked onchange="renderUI()"><span>1계역</span></label>
                     <label><input type="radio" name="mix_type" value="2" onchange="renderUI()"><span>2계역</span></label>
                     <label><input type="radio" name="mix_type" value="chess" onchange="renderUI()"><span>체스 랜덤</span></label>
+                    <!-- 신규 추가: 행운의 각성체 모드 -->
+                    <label><input type="radio" name="mix_type" value="lucky" onchange="renderUI()"><span>행운의 각성체</span></label>
                 </div>
             </div>
             <div class="setting-group">
@@ -153,7 +162,6 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
-    // 사야를 '영지'에서 '축복'으로 이동
     const chessRoles = {
         "수호": ["엘바","아이기스","릴리","카스토르","웬코르","에리카","완다","오지에","파인트","산","아그리파"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","모샤","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
@@ -240,11 +248,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v16', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v17', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v16'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v17'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -299,7 +307,8 @@
                     <div class="char-grid" id="grid-${role}">
                         ${chars.map(c => `
                             <label class="char-item">
-                                <input type="checkbox" class="chk chk-${role}" data-n="${c.n}" ${c.n === '사야' ? '' : 'checked'} onchange="saveSettings()">
+                                <!-- 사야 포함 모든 캐릭터 기본 활성화 (checked) -->
+                                <input type="checkbox" class="chk chk-${role}" data-n="${c.n}" checked onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
                                     <span>${c.n}</span>
@@ -315,6 +324,7 @@
                 accordion.appendChild(section);
             }
         } else {
+            // 1계역, 2계역, 행운의 각성체 모드일 경우 계역 기준으로 표시
             for (const f in characterData) {
                 const config = characterData[f];
                 const section = document.createElement('div');
@@ -332,7 +342,8 @@
                     <div class="char-grid" id="grid-${f}">
                         ${config.list.map(c => `
                             <label class="char-item">
-                                <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-r="${c.r}" ${c.n === '사야' ? '' : 'checked'} onchange="saveSettings()">
+                                <!-- 사야 포함 모든 캐릭터 기본 활성화 (checked) -->
+                                <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-r="${c.r}" checked onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
                                     <span>${c.n}</span>
@@ -365,11 +376,13 @@
         const res = document.getElementById('result');
         res.innerHTML = '';
 
+        // 이스터에그 0.5% 확률 (행운 모드에서는 1개, 나머지는 4개 생성)
         if (Math.random() < 0.005) { 
             document.body.style.backgroundImage = 'url(망각전야이미지폴더/Easter_egg3.png)';
-            for(let i=0; i<4; i++) {
+            let loopCount = (mixType === 'lucky') ? 1 : 4;
+            for(let i=0; i<loopCount; i++) {
                 res.innerHTML += `
-                    <div class="card" style="border-bottom: 4px solid #ffffff">
+                    <div class="card ${mixType === 'lucky' ? 'lucky-card' : ''}" style="border-bottom: 4px solid #ffffff">
                         <img src="망각전야이미지폴더/Easter_egg1.png" class="profile">
                         <div class="card-name">작은석탄공</div>
                         <div class="card-role-box"><span class="tier-tag tag-ssr">SSR</span><span class="role-tag" style="background:#fff; color:#000;">모스단짝</span></div>
@@ -396,7 +409,24 @@
                 }
             }
             if (team.length < 4) return alert("캐릭터가 부족합니다. (4가지 역할군 필요)");
+
+        } else if (mixType === 'lucky') {
+            // ⭐ 신규 추가: 행운의 각성체 모드 (모든 체크된 캐릭터 중 단 1명만 무작위로 선택)
+            const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
+            if (availableFactions.length === 0) return alert("각성체를 1명 이상 선택해주세요!");
+            
+            let pool = [];
+            availableFactions.forEach(f => {
+                pool.push(...Array.from(document.querySelectorAll(`.chk-${f}:checked`)).map(el => ({ n: el.dataset.n, f: el.dataset.f, t: el.dataset.t, r: el.dataset.r })));
+            });
+            
+            if (pool.length < 1) return alert("캐릭터가 없습니다.");
+            
+            let picked = pool[Math.floor(Math.random() * pool.length)];
+            team.push(picked);
+
         } else {
+            // 기본 1계역, 2계역 모드
             const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
             if (availableFactions.length === 0) return alert("각성체를 선택해주세요!");
             let pool = [];
@@ -418,6 +448,7 @@
             }
         }
 
+        // 결과 화면 출력
         team.forEach(t => {
             const config = characterData[t.f];
             const charInfo = findCharData(t.n);
@@ -428,9 +459,12 @@
             }
 
             let roleTagHTML = (mixType === 'chess') ? `<span class="role-tag role-chess ${t.chessRole}">${t.chessRole}</span>` : getRoleTag(t.r);
+            
+            // 행운 모드일 경우 카드에 추가 효과(크게 보이기 등)
+            let extraClass = (mixType === 'lucky') ? 'lucky-card' : '';
 
             res.innerHTML += `
-                <div class="card" style="border-bottom: 4px solid ${config.color}">
+                <div class="card ${extraClass}" style="border-bottom: 4px solid ${config.color}">
                     <img src="${finalImg}" class="profile" onerror="this.src='https://via.placeholder.com/170x230?text=No+Image'">
                     <div class="card-name">${t.n}</div>
                     <div class="card-role-box">
