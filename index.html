@@ -112,7 +112,7 @@
         .card-faction { font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 10px; opacity: 0.9; }
         .faction-icon-card { width: 42px; height: 42px; }
 
-        /* 행운의 각성체 모드일 때 카드를 조금 더 크고 화려하게 표시 (선택사항) */
+        /* 행운의 각성체 모드일 때 카드 */
         .card.lucky-card {
             transform: scale(1.1);
             box-shadow: 0 15px 45px rgba(255, 215, 0, 0.4);
@@ -135,7 +135,6 @@
                     <label><input type="radio" name="mix_type" value="1" checked onchange="renderUI()"><span>1계역</span></label>
                     <label><input type="radio" name="mix_type" value="2" onchange="renderUI()"><span>2계역</span></label>
                     <label><input type="radio" name="mix_type" value="chess" onchange="renderUI()"><span>체스 랜덤</span></label>
-                    <!-- 신규 추가: 행운의 각성체 모드 -->
                     <label><input type="radio" name="mix_type" value="lucky" onchange="renderUI()"><span>행운의 각성체</span></label>
                 </div>
             </div>
@@ -211,7 +210,8 @@
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
             list: [
-                {n:'사야', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfa01.png', i_gen:'일반이미지폴더/gen_ddfa01.png'},
+                /* 사야의 이미지 파일명을 01에서 02로 수정했습니다. */
+                {n:'사야', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfa02.png', i_gen:'일반이미지폴더/gen_ddfa02.png'},
                 {n:'혈쇄•히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd88d6.png', i_gen:'일반이미지폴더/gen_dd88d6.png'},
                 {n:'히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd8cbb.png', i_gen:'일반이미지폴더/gen_dd8cbb.png'},
                 {n:'우브하시', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddde7a.png', i_gen:'일반이미지폴더/gen_ddde7a.png'},
@@ -411,7 +411,6 @@
             if (team.length < 4) return alert("캐릭터가 부족합니다. (4가지 역할군 필요)");
 
         } else if (mixType === 'lucky') {
-            // ⭐ 신규 추가: 행운의 각성체 모드 (모든 체크된 캐릭터 중 단 1명만 무작위로 선택)
             const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
             if (availableFactions.length === 0) return alert("각성체를 1명 이상 선택해주세요!");
             
@@ -426,7 +425,6 @@
             team.push(picked);
 
         } else {
-            // 기본 1계역, 2계역 모드
             const availableFactions = Object.keys(characterData).filter(f => document.querySelectorAll(`.chk-${f}:checked`).length > 0);
             if (availableFactions.length === 0) return alert("각성체를 선택해주세요!");
             let pool = [];
@@ -448,7 +446,6 @@
             }
         }
 
-        // 결과 화면 출력
         team.forEach(t => {
             const config = characterData[t.f];
             const charInfo = findCharData(t.n);
@@ -460,7 +457,6 @@
 
             let roleTagHTML = (mixType === 'chess') ? `<span class="role-tag role-chess ${t.chessRole}">${t.chessRole}</span>` : getRoleTag(t.r);
             
-            // 행운 모드일 경우 카드에 추가 효과(크게 보이기 등)
             let extraClass = (mixType === 'lucky') ? 'lucky-card' : '';
 
             res.innerHTML += `
