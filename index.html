@@ -161,9 +161,11 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
+    // 이름 변경: 웬코르 -> 윙클, 모샤 -> 무셰트
+    // 신규 추가: 폰토스 (수호)
     const chessRoles = {
-        "수호": ["엘바","아이기스","릴리","카스토르","웬코르","에리카","완다","오지에","파인트","산","아그리파"],
-        "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","모샤","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
+        "수호": ["엘바","아이기스","릴리","카스토르","윙클","에리카","완다","오지에","파인트","산","아그리파","폰토스"],
+        "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","무셰트","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
         "영지": ["아라크네","카시아","미리암","틴커트","노틸라","판디아","회귀•라모나","타비","파로스","탄망•머피","머피","라모나","클레멘타인"],
         "흉성": ["서","님피아","툴루","리즈","젠킨","우브하시","소렐","오레타","픽맨","도어세인"],
         "축복": ["사야","코퍼산트","레이아","돌","카렌","타이스","융해•돌","오를라","셀레스트"]
@@ -184,7 +186,7 @@
                 {n:'카렌', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd145e.png', i_gen:'일반이미지폴더/gen_dd145e.png'},
                 {n:'타비', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd6a98.png', i_gen:'일반이미지폴더/gen_dd6a98.png'},
                 {n:'카티구라', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6ad1.png', i_gen:'일반이미지폴더/gen_dd6ad1.png'},
-                {n:'모샤', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png', i_gen:'일반이미지폴더/gen_dd6d9a.png'},
+                {n:'무셰트', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png', i_gen:'일반이미지폴더/gen_dd6d9a.png'}, /* 모샤 -> 무셰트 */
                 {n:'하멜른', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd6dd8.png', i_gen:'일반이미지폴더/gen_dd6dd8.png'},
                 {n:'라모나', r:'보조형', t:'SR', i:'망각전야이미지폴더/image_dd6e33.png', i_gen:'일반이미지폴더/gen_dd6e33.png'},
                 {n:'돌', r:'보조형', t:'SR', i:'망각전야이미지폴더/image_dd6e72.png', i_gen:'일반이미지폴더/gen_dd6e72.png'},
@@ -205,12 +207,12 @@
                 {n:'산', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd79da.png', i_gen:'일반이미지폴더/gen_dd79da.png'},
                 {n:'셀레스트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
                 {n:'코퍼산트', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
-                {n:'모스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'}
+                {n:'모스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'},
+                {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487e.png', i_gen:'일반이미지폴더/gen_07487e.png'} /* 신규 캐릭터 폰토스 추가 */
             ]
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
             list: [
-                /* 사야의 이미지 파일명을 01에서 02로 수정했습니다. */
                 {n:'사야', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddfa02.png', i_gen:'일반이미지폴더/gen_ddfa02.png'},
                 {n:'혈쇄•히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd88d6.png', i_gen:'일반이미지폴더/gen_dd88d6.png'},
                 {n:'히로', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd8cbb.png', i_gen:'일반이미지폴더/gen_dd8cbb.png'},
@@ -235,7 +237,7 @@
                 {n:'다포닐', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png', i_gen:'일반이미지폴더/gen_ddf89b.png'},
                 {n:'폴룩스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddfd39.png', i_gen:'일반이미지폴더/gen_ddfd39.png'},
                 {n:'에리카', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png', i_gen:'일반이미지폴더/gen_ddf95e.png'},
-                {n:'웬코르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'},
+                {n:'윙클', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'}, /* 웬코르 -> 윙클 */
                 {n:'완다', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8d9.png', i_gen:'일반이미지폴더/gen_ddf8d9.png'},
                 {n:'카스토르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddfc45.png', i_gen:'일반이미지폴더/gen_ddfc45.png'},
                 {n:'틴커트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf8bb.png', i_gen:'일반이미지폴더/gen_ddf8bb.png'},
@@ -248,11 +250,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v17', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v18', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v17'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v18'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
@@ -307,7 +309,6 @@
                     <div class="char-grid" id="grid-${role}">
                         ${chars.map(c => `
                             <label class="char-item">
-                                <!-- 사야 포함 모든 캐릭터 기본 활성화 (checked) -->
                                 <input type="checkbox" class="chk chk-${role}" data-n="${c.n}" checked onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
@@ -324,7 +325,6 @@
                 accordion.appendChild(section);
             }
         } else {
-            // 1계역, 2계역, 행운의 각성체 모드일 경우 계역 기준으로 표시
             for (const f in characterData) {
                 const config = characterData[f];
                 const section = document.createElement('div');
@@ -342,7 +342,6 @@
                     <div class="char-grid" id="grid-${f}">
                         ${config.list.map(c => `
                             <label class="char-item">
-                                <!-- 사야 포함 모든 캐릭터 기본 활성화 (checked) -->
                                 <input type="checkbox" class="chk chk-${f}" data-f="${f}" data-n="${c.n}" data-t="${c.t}" data-r="${c.r}" checked onchange="saveSettings()">
                                 <img src="${style === 'casual' ? c.i : c.i_gen}" class="char-thumb">
                                 <div class="char-name-box">
@@ -376,7 +375,6 @@
         const res = document.getElementById('result');
         res.innerHTML = '';
 
-        // 이스터에그 0.5% 확률 (행운 모드에서는 1개, 나머지는 4개 생성)
         if (Math.random() < 0.005) { 
             document.body.style.backgroundImage = 'url(망각전야이미지폴더/Easter_egg3.png)';
             let loopCount = (mixType === 'lucky') ? 1 : 4;
