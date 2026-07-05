@@ -161,8 +161,6 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
-    // 이름 변경: 웬코르 -> 윙클, 모샤 -> 무셰트
-    // 신규 추가: 폰토스 (수호)
     const chessRoles = {
         "수호": ["엘바","아이기스","릴리","카스토르","윙클","에리카","완다","오지에","파인트","산","아그리파","폰토스"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","무셰트","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스"],
@@ -186,7 +184,7 @@
                 {n:'카렌', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd145e.png', i_gen:'일반이미지폴더/gen_dd145e.png'},
                 {n:'타비', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd6a98.png', i_gen:'일반이미지폴더/gen_dd6a98.png'},
                 {n:'카티구라', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6ad1.png', i_gen:'일반이미지폴더/gen_dd6ad1.png'},
-                {n:'무셰트', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png', i_gen:'일반이미지폴더/gen_dd6d9a.png'}, /* 모샤 -> 무셰트 */
+                {n:'무셰트', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd6d9a.png', i_gen:'일반이미지폴더/gen_dd6d9a.png'},
                 {n:'하멜른', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd6dd8.png', i_gen:'일반이미지폴더/gen_dd6dd8.png'},
                 {n:'라모나', r:'보조형', t:'SR', i:'망각전야이미지폴더/image_dd6e33.png', i_gen:'일반이미지폴더/gen_dd6e33.png'},
                 {n:'돌', r:'보조형', t:'SR', i:'망각전야이미지폴더/image_dd6e72.png', i_gen:'일반이미지폴더/gen_dd6e72.png'},
@@ -208,7 +206,8 @@
                 {n:'셀레스트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
                 {n:'코퍼산트', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
                 {n:'모스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'},
-                {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487e.png', i_gen:'일반이미지폴더/gen_07487e.png'} /* 신규 캐릭터 폰토스 추가 */
+                /* 폰토스 이미지 캐시 갱신을 위해 07487e -> 07487f 로 변경 */
+                {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487f.png', i_gen:'일반이미지폴더/gen_07487f.png'}
             ]
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
@@ -237,7 +236,7 @@
                 {n:'다포닐', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddf89b.png', i_gen:'일반이미지폴더/gen_ddf89b.png'},
                 {n:'폴룩스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_ddfd39.png', i_gen:'일반이미지폴더/gen_ddfd39.png'},
                 {n:'에리카', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf95e.png', i_gen:'일반이미지폴더/gen_ddf95e.png'},
-                {n:'윙클', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'}, /* 웬코르 -> 윙클 */
+                {n:'윙클', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8fd.png', i_gen:'일반이미지폴더/gen_ddf8fd.png'},
                 {n:'완다', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddf8d9.png', i_gen:'일반이미지폴더/gen_ddf8d9.png'},
                 {n:'카스토르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddfc45.png', i_gen:'일반이미지폴더/gen_ddfc45.png'},
                 {n:'틴커트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf8bb.png', i_gen:'일반이미지폴더/gen_ddf8bb.png'},
@@ -250,11 +249,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v18', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v19', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v18'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v19'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
