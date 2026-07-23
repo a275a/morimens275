@@ -161,7 +161,6 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
-    // '침식•로탄' 투쟁에 추가, '서'를 '쉬'로 변경
     const chessRoles = {
         "수호": ["엘바","아이기스","릴리","카스토르","윙클","에리카","완다","오지에","파인트","산","아그리파","폰토스"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","무셰트","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스","침식•로탄"],
@@ -191,7 +190,7 @@
                 {n:'돌', r:'보조형', t:'SR', i:'망각전야이미지폴더/image_dd6e72.png', i_gen:'일반이미지폴더/gen_dd6e72.png'},
                 {n:'오지에', r:'방어형', t:'SR', i:'망각전야이미지폴더/image_dd6e98.png', i_gen:'일반이미지폴더/gen_dd6e98.png'},
                 {n:'로탄', r:'공격형', t:'SR', i:'망각전야이미지폴더/image_dd715b.png', i_gen:'일반이미지폴더/gen_dd715b.png'},
-                {n:'침식•로탄', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_e1f2a3.png', i_gen:'일반이미지폴더/gen_e1f2a3.png'} /* 신규 캐릭터 추가 */
+                {n:'침식•로탄', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_e1f2a3.png', i_gen:'일반이미지폴더/gen_e1f2a3.png'}
             ]
         },
         '심해': { icon: '망각전야이미지폴더/icon_deepsea.png', color: '#00f2ff',
@@ -208,7 +207,8 @@
                 {n:'셀레스트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
                 {n:'코퍼산트', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
                 {n:'모스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'},
-                {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487e.png', i_gen:'일반이미지폴더/gen_07487e.png'}
+                /* 폰토스 이미지 파일명 정확하게 f로 수정! */
+                {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487f.png', i_gen:'일반이미지폴더/gen_07487f.png'}
             ]
         },
         '혈육': { icon: '망각전야이미지폴더/icon_blood.png', color: '#ff3c3c',
@@ -226,7 +226,7 @@
                 {n:'레이아', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png', i_gen:'일반이미지폴더/gen_dddeb6.png'},
                 {n:'타이스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png', i_gen:'일반이미지폴더/gen_dd8c1f.png', i_hidden:'일반이미지폴더/hidden_edaead.png'},
                 {n:'픽맨', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf102.png', i_gen:'일반이미지폴더/gen_ddf102.png'},
-                {n:'쉬', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'} /* 서 -> 쉬 */
+                {n:'쉬', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'}
             ]
         },
         '초차원': { icon: '망각전야이미지폴더/icon_hyper.png', color: '#da70d6',
@@ -250,11 +250,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v19', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v20', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v19'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v20'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
