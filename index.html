@@ -161,12 +161,13 @@
         "축복": { c: "var(--c-bless)", i: "✨" }
     };
 
+    // '카라부' 수호에 추가
     const chessRoles = {
-        "수호": ["엘바","아이기스","릴리","카스토르","윙클","에리카","완다","오지에","파인트","산","아그리파","폰토스"],
+        "수호": ["엘바","아이기스","릴리","카스토르","윙클","에리카","완다","오지에","파인트","산","아그리파","폰토스","카라부"],
         "투쟁": ["하멜른","모스","히로","라이커","다포닐","골리아","무셰트","로탄","카이커스","24","혈쇄•히로","살바도르","카티구라","폴룩스","침식•로탄"],
         "영지": ["아라크네","카시아","미리암","틴커트","노틸라","판디아","회귀•라모나","타비","파로스","탄망•머피","머피","라모나","클레멘타인"],
-        "흉성": ["쉬","님피아","툴루","리즈","젠킨","우브하시","소렐","오레타","픽맨","도어세인"],
-        "축복": ["사야","코퍼산트","레이아","돌","카렌","타이스","융해•돌","오를라","셀레스트"]
+        "흉성": ["서","님피아","툴루","리즈","젠킨","우브하시","소렐","오레타","픽맨","도어세인"],
+        "축복": ["사야","코퍼산트","레아","돌","카렌","타이스","융해•돌","오를라","셀레스트"]
     };
 
     const characterData = {
@@ -207,7 +208,6 @@
                 {n:'셀레스트', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd7cbb.png', i_gen:'일반이미지폴더/gen_dd7cbb.png'},
                 {n:'코퍼산트', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_dd845b.png', i_gen:'일반이미지폴더/gen_dd845b.png'},
                 {n:'모스', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_dd84a1.png', i_gen:'일반이미지폴더/gen_dd84a1.png'},
-                /* 폰토스 이미지 파일명 정확하게 f로 수정! */
                 {n:'폰토스', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_07487f.png', i_gen:'일반이미지폴더/gen_07487f.png'}
             ]
         },
@@ -223,10 +223,11 @@
                 {n:'파인트', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_ddded9.png', i_gen:'일반이미지폴더/gen_ddded9.png'},
                 {n:'살바도르', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_dd8c59.png', i_gen:'일반이미지폴더/gen_dd8c59.png'},
                 {n:'아이기스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c7d.png', i_gen:'일반이미지폴더/gen_dd8c7d.png'},
-                {n:'레이아', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png', i_gen:'일반이미지폴더/gen_dddeb6.png'},
+                {n:'레아', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dddeb6.png', i_gen:'일반이미지폴더/gen_dddeb6.png'},
                 {n:'타이스', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_dd8c1f.png', i_gen:'일반이미지폴더/gen_dd8c1f.png', i_hidden:'일반이미지폴더/hidden_edaead.png'},
                 {n:'픽맨', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf102.png', i_gen:'일반이미지폴더/gen_ddf102.png'},
-                {n:'쉬', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'}
+                {n:'서', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_ddf13f.png', i_gen:'일반이미지폴더/gen_ddf13f.png'},
+                {n:'카라부', r:'방어형', t:'SSR', i:'망각전야이미지폴더/image_a1b2c3.png', i_gen:'일반이미지폴더/gen_a1b2c3.png'} /* 신규 캐릭터 카라부 추가 */
             ]
         },
         '초차원': { icon: '망각전야이미지폴더/icon_hyper.png', color: '#da70d6',
@@ -250,11 +251,11 @@
 
     function saveSettings() {
         const checked = Array.from(document.querySelectorAll('.chk')).map(el => ({ n: el.dataset.n, c: el.checked }));
-        localStorage.setItem('morimens_final_data_v20', JSON.stringify(checked));
+        localStorage.setItem('morimens_final_data_v22', JSON.stringify(checked));
     }
 
     function loadSettings() {
-        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v20'));
+        const saved = JSON.parse(localStorage.getItem('morimens_final_data_v22'));
         if (saved) saved.forEach(item => { const el = document.querySelector(`.chk[data-n="${item.n}"]`); if (el) el.checked = item.c; });
     }
 
