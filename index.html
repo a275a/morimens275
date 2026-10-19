@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>망각전야 랜덤 팀 편성기 & 최애 공유기</title>
-    <!-- 이미지 캡처용 라이브러리 추가 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&family=Orbitron:wght@500&display=swap');
@@ -125,7 +124,6 @@
             cursor: pointer; box-shadow: 0 0 25px rgba(255,215,0,0.3); color: black; transition: 0.3s;
         }
         
-        /* 이미지 저장 버튼 스타일 */
         .btn-save {
             display: inline-block; padding: 12px 30px; margin-top: 25px;
             background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3);
@@ -206,7 +204,6 @@
             <button class="btn-gen" onclick="makeTeam()">TEAM DECODE</button>
         </div>
         
-        <!-- 캡처 대상 영역 -->
         <div id="capture-random">
             <div id="result" class="result-area"></div>
         </div>
@@ -225,11 +222,9 @@
             </div>
             
             <div id="fav-controls" class="settings-row" style="margin-bottom:0;">
-                <!-- JS에서 셀렉트 박스 생성 -->
             </div>
         </div>
         
-        <!-- 캡처 대상 영역 -->
         <div id="capture-favorite">
             <div id="fav-result" class="result-area"></div>
         </div>
@@ -280,7 +275,8 @@
                 {n:'오지에', r:'방어형', t:'SR', i:'망각전야이미지폴더/image_dd6e98.png', i_gen:'일반이미지폴더/gen_dd6e98.png'},
                 {n:'로탄', r:'공격형', t:'SR', i:'망각전야이미지폴더/image_dd715b.png', i_gen:'일반이미지폴더/gen_dd715b.png'},
                 {n:'침식•로탄', r:'공격형', t:'SSR', i:'망각전야이미지폴더/image_e1f2a3.png', i_gen:'일반이미지폴더/gen_e1f2a3.png'},
-                {n:'서약•오지에', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_9a8b7c.png', i_gen:'일반이미지폴더/gen_9a8b7c.png'}
+                {n:'서약•오지에', r:'수비형', t:'SSR', i:'망각전야이미지폴더/image_9a8b7c.png', i_gen:'일반이미지폴더/gen_9a8b7c.png'},
+                {n:'비비안', r:'보조형', t:'SSR', i:'망각전야이미지폴더/image_b1c2d3.png', i_gen:'일반이미지폴더/gen_b1c2d3.png'} /* 비비안 추가 */
             ]
         },
         '심해': { icon: '망각전야이미지폴더/icon_deepsea.png', color: '#00f2ff',
@@ -338,34 +334,30 @@
         }
     };
 
-    const STORAGE_KEY = 'morimens_final_data_v28';
-    const FAV_STORAGE_KEY = 'morimens_favorites_v2';
+    const STORAGE_KEY = 'morimens_final_data_v29';
+    const FAV_STORAGE_KEY = 'morimens_favorites_v3';
 
-    // ⭐ 이미지 저장 기능 추가
     function saveAsImage(targetId, fileName) {
         const target = document.getElementById(targetId);
         
-        // 결과 영역 내에 렌더링된 카드가 있는지 확인
         if (!target || target.querySelector('.card') === null) {
             alert("캡처할 결과가 없습니다! 먼저 각성체를 선택하거나 팀을 편성해주세요.");
             return;
         }
 
-        // 캡처 전 깔끔한 저장을 위해 임시 스타일 적용
         const originalPadding = target.style.padding;
         target.style.padding = '30px'; 
         
         html2canvas(target, {
-            backgroundColor: 'rgba(0, 0, 0, 0.85)', // 깔끔한 반투명 검은 배경
-            scale: 2, // 고화질 저장
-            useCORS: true // 외부 이미지 허용
+            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+            scale: 2,
+            useCORS: true
         }).then(canvas => {
             const link = document.createElement('a');
             link.download = fileName;
             link.href = canvas.toDataURL('image/png');
             link.click();
             
-            // 스타일 원상복구
             target.style.padding = originalPadding;
         }).catch(err => {
             alert("이미지 저장 중 문제가 발생했습니다.");
@@ -573,7 +565,7 @@
         const btnSaveWrap = document.getElementById('btn-save-random-wrap');
         
         res.innerHTML = '';
-        btnSaveWrap.style.display = 'none'; // 편성 실패를 대비해 일단 숨김
+        btnSaveWrap.style.display = 'none';
 
         if (Math.random() < 0.005) { 
             document.body.style.backgroundImage = 'url(망각전야이미지폴더/Easter_egg3.png)';
@@ -707,7 +699,7 @@
         }
 
         renderCardsResult(renderTeam, mixType);
-        btnSaveWrap.style.display = 'block'; // 편성 성공 시 저장 버튼 표시
+        btnSaveWrap.style.display = 'block'; 
     }
 
     function renderCardsResult(team, mode) {
